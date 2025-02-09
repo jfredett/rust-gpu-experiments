@@ -1,0 +1,21 @@
+.last_run
+.bacon-locations
+.lcov
+hazel.log
+.env
+.devenv/
+/target
+launch.json
+.vscode/settings.json
+NOTES.mkd
+flamegraph.svg
+perf.*
+mutants.out/
+mutants.out.old/
+
+
+# Added by cargo
+#
+# already existing elements were commented out
+
+#/target
