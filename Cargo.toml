@@ -1,0 +1,8 @@
+[workspace]
+
+members = [
+    "experiment-1",
+    "shader-1"
+]
+
+resolver = "2"
