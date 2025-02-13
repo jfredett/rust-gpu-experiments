@@ -4,4 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [build-dependencies]
-spirv-builder = "0.9"
+spirv-builder = { git = "https://github.com/Rust-GPU/rust-gpu.git", branch = "main" }
+# spirv-builder = "0.9"
