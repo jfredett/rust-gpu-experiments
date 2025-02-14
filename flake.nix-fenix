@@ -30,21 +30,19 @@
       ];
 
       perSystem = { pkgs, system, ... }: let
-        # gpu_rustpkg = (fenix.packages.${system}.fromManifestFile gpu-rust-manifest).withComponents [
-        #   "rust-src"
-        #   "rustc"
-        #   "rustc-dev"
-        #   "llvm-tools"
-        #   "cargo"
-        # ];
-        # preferred_rustpkg = (fenix.packages.${system}.fromManifestFile preferred-rust-manifest).defaultToolchain;
+        gpu_rustpkg = (fenix.packages.${system}.fromManifestFile gpu-rust-manifest).withComponents [
+          "rust-src"
+          "rustc"
+          "rustc-dev"
+          "llvm-tools"
+          "cargo"
+        ];
+        preferred_rustpkg = (fenix.packages.${system}.fromManifestFile preferred-rust-manifest).defaultToolchain;
       in {
         # Ideally set a `compilers/` dir with the two rusts in it?
         devshells.default = {
           env = [
             { name = "LD_LIBRARY_PATH"; value = "${pkgs.stdenv.cc.cc.lib}/lib"; }
-            { name = "PATH"; prefix = "~/.cargo/bin:~/.rustup/toolchains/**/bin"; }
-            { name = "LIBCLANG_PATH"; value = pkgs.lib.makeLibraryPath [ pkgs.llvmPackages_latest.libclang.lib ]; }
           ];
 
           packages = with pkgs; [
@@ -61,7 +59,7 @@
             linuxKernel.packages.linux_6_6.perf
             mold
             perf-tools
-            rustup
+            gpu_rustpkg
           ];
 
         };
