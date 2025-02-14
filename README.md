@@ -65,3 +65,19 @@ not, then I can just fall back to rustup for GPU work, which is perfectly fine f
 
 I'm going to commit off this work and try that.
 
+
+# 14-FEB-2025
+
+## 1202
+
+I believe I got it working with the direct rustup install. I don't love this, because it means that the rust install is
+not tied to the flake in any real way. From the above I should be able to at least ameliorate that via a toolchain file,
+but it still feels a little lousy.
+
+I think the `fenix` thing could work, but the more I look the more I think it needs to have changes on the
+rust-gpu/spirv builder side to accomodate it. If the spirv-builder had some way to specify the compiler it should use at
+invoke time, then it would be vanishingly easy to make things work with `fenix`.
+
+I'm going to update my issue with the method I found. I am seeing an issue compiling `clap_lex` on this version, there
+appears to be a 3-day-old (at TOW) issue that refers to this, so I think it's a known bug.
+
