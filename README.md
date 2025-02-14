@@ -33,3 +33,35 @@ using nightly for my crate, but old-nightly for the spirv-builder.
 
 I might be able to do this trickery in _my_ `build.rs` file, but I'm not quite sure how to do that, I haven't used
 `build.rs` much before.
+
+# 13-FEB-2025
+
+## 1634
+
+I ripped out the `devenv` stuff for unrelated (AI) reasons.
+
+## 2043
+
+I got this sort of almost working, a bit. Here's the progress.
+
+
+First, it's easy to get multiple different versions of rust via fenix in the flake. I just need to have it link the
+executables in the path by some other name, which I'm pretty sure is possible. Once I get that, I need to figure out how
+to get _only_ my shader crate to use the specific nightly, while the main crate uses the newer compiler. I think this
+comes back to correctly setting `RUSTC` and maybe some other variables only during the `build.rs` stage for
+`experiment-1`, which I don't know if dynamically setting a RUSTC while compiling with a RUSTC is possible, but that's
+essentially what needs to happen. Alternatively, I could _add_ another env to the rust-gpu side and use that, but I
+don't want to start compiling `rust-gpu` until I have to.
+
+Getting the right compiler wasn't the whole problem, beause the `spirv-builder` crate also needs to be compiled with a
+particularly old nightly at `0.9`, I tried going to `main` to see if I could get a more recent compiler that avoided the
+need for the inline const in `experiment-1`, the consuming crate. This worked, sort of, I grabbed the compiler from
+`main`'s toolchain file, but it seems to be missing the `spirv` arch, which I suspect is because there is a step I am
+missing that the maintainer's know. This does mean I'm headed in the right direction to some extent, but I think there
+is a better way, and that's to just make a flake where `cargo-gpu` works, then I can just re-use the work entirely. This
+should be doable via the flake example at the bottom of [this page](https://nixos.wiki/wiki/Rust). I can still use
+`fenix` for the main compiler, but this will allow `cargo-gpu` to install via rustup and should allow me to use it. If
+not, then I can just fall back to rustup for GPU work, which is perfectly fine for my purposes.
+
+I'm going to commit off this work and try that.
+
