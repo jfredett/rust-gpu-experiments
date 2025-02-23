@@ -8,7 +8,9 @@ crate-type = ["dylib", "lib"]
 
 # Dependencies for CPU and GPU code
 [dependencies]
-spirv-std = { version = "0.9" }
+spirv-std = { git = "https://github.com/jfredett/rust-gpu", branch = "main" }
+bytemuck = { version = "1.20.0", features = ["derive"] }
+#spirv-std = { path = "../../rust-gpu/crates/spirv-std" }
 
 # dependencies for CPU code
 [target.'cfg(not(target_arch = "spirv"))'.dependencies]
