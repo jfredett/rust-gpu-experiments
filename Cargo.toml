@@ -5,9 +5,9 @@ members = [
     "shader-1"
 ]
 
-resolver = "2"
+resolver = "1"
 
-#  https://rust-gpu.github.io/rust-gpu/book/writing-shader-crates.html
+# https://rust-gpu.github.io/rust-gpu/book/writing-shader-crates.html
 # Compile build-dependencies in release mode with
 # the same settings as regular dependencies.
 [profile.release.build-override]
@@ -16,3 +16,5 @@ codegen-units = 16
 
 [profile.dev.build-override]
 opt-level = 3
+
+

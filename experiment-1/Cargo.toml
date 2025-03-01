@@ -5,5 +5,6 @@ edition = "2021"
 
 [build-dependencies]
 #spirv-builder = { path = "../../rust-gpu/crates/spirv-builder" }
-spirv-builder = { git = "https://github.com/jfredett/rust-gpu.git", branch = "main" }
-# spirv-builder = "0.9"
+#spirv-builder = { git = "https://github.com/jfredett/rust-gpu.git", branch = "main" }
+spirv-builder = { git = "https://github.com/Rust-GPU/rust-gpu.git", branch = "main" }
+#spirv-builder = "0.9"

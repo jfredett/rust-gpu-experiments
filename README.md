@@ -798,3 +798,47 @@ Error: ...build error!
 
 Not sure if this is my change (to bump the bytemuck dep) or if it's one of the many other hacks I've been piling on
 here; but this is probably interesting enough to report on the issue.
+
+
+# 1-MAR-2025
+
+## 1614
+
+After some further discussion, I had a misunderstanding clarified, but have had no further success in getting this
+version of things to compile either on the 0.9 version or on `main`. In particular, I get two distinct kinds of error:
+
+### 0.9
+
+I get an issue where `elsa` is pinned to 1.11, but it should be 1.6 to match the 0.9 versions, I'm not quite sure why
+this happens, but the result is that the `0.9` version can't compile because it uses `inline_const`, which was unstable
+at the time of the rust compiler needed.
+
+I didn't try a clean rebuild there, that's still a possiblity, but my guess is that it was maybe a loose dep
+specification somewhere in the chain (I believe in spirt) and I'd have to unwind that to figure out what's up.
+
+### main
+
+Using my forks of the main branch also didn't work, though for a less obvious reason, it appears the target isn't
+supported? This doesn't make a tone of sense to me, but it does fail equivalently after a full clean (I tried it on a
+separate VM just to rule out any machine-local stuff.
+
+I might try this one more time w/ the official repos subbed in, just to be sure.
+
+## 1637
+
+This did not work. I truly have no idea why, and at this point, I'm not really interested in chasing this anymore. The
+goal of this project was to experiment with Rust on the GPU. The experiment's result is "It's not straightforward right
+now, come back later."
+
+I might try getting this working on a non-nixos machine at some point, or I might just leave the GPU stuff to the
+other wizards.
+
+In principle, the current `flake.nix` should build this; I don't put any onus on the maintainers for it not working
+here, but I do not really understand how I end up with such semi-random failures when matching, ostensibly, the versions
+they need, copying code directly from `rust-gpu`.
+
+It might be worthwhile to try rebuilding this repo again from scratch? I don't think I introduced anything weird in the
+process.
+
+Alternately, it might be worthwhile to try to build the `rust-gpu` workspace as a whole, it might at least reveal where
+the issue is living. If I come back to this at some point, maybe I'll try that.
